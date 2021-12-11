@@ -1,21 +1,21 @@
-var p1,p1_Image;
+var machine,p1_Image;
 var fan,fanImage;
-var t,t_Image;
+var track,t_Image;
 var train,trainImage;
 
 function preload(){
   p1_Image = loadImage("magic.png");
   fan_Image = loadImage("fan.png");
   t_Image = loadImage("track brks.png");
-  trainImage = loadImage("p1.png");
+  trainImage = loadImage("machine.png");
 
 }
 function setup() {
   createCanvas(1528, 701);
 
-  p1 = createSprite(900, 360);
-  p1.addImage(p1_Image);
-  p1.scale = 0.2;
+  machine = createSprite(900, 360);
+  machine.addImage(p1_Image);
+  machine.scale = 0.2;
 
   fan = createSprite(900, 360);
   fan.addImage(fan_Image);
@@ -29,54 +29,53 @@ function setup() {
 }
 function draw() {
   background("white"); 
-  fan.x = p1.x;
-  fan.y = p1.y;
-  train.collide(p1);
-  // train.x = t.x;
-  // train.y = t.y;
+  fan.x = machine.x;
+  fan.y = machine.y;
+  train.collide(machine);
+  // train.x = track.x;
+  // train.y = track.y;
 
   if (keyDown("up")) {
-    p1.setSpeedAndDirection(p1.getSpeed()+10, p1.rotation-90);
-    t = createSprite(p1.x,p1.y);
-    t.addImage(t_Image);
-    t.scale = 0.2;
-    t.lifetime = 200;
-    t.rotation = p1.rotation;
-    t.depth = p1.depth-1;
-    train.x = t.x;
-    train.y = t.y;
-    train.rotation = t.rotation;
-    // // tGroup.add(t);
+    machine.setSpeedAndDirection(machine.getSpeed()+10, machine.rotation-90);
+    track = createSprite(machine.x,machine.y);
+    track.addImage(t_Image);
+    track.scale = 0.2;
+    track.lifetime = 200;
+    track.rotation = machine.rotation;
+    track.depth = machine.depth-1;
+    train.x = track.x;
+    train.y = track.y+200;
+    train.rotation = track.rotation;
+    // // tGroup.add(track);
   } 
   else{
-    p1.setSpeedAndDirection(p1.getSpeed()-0.5, p1.rotation-90);
+    machine.setSpeedAndDirection(machine.getSpeed()-0.5, machine.rotation-90);
   } 
-
 
   if (keyDown("left")) {
     if (keyDown("/") && keyDown("up") == false ) {
-      p1.rotation = p1.rotation-18;
+      machine.rotation = machine.rotation-18;
     } else {
-      p1.rotation = p1.rotation-5;
+      machine.rotation = machine.rotation-5;
     }
   }
   if (keyDown("right")) {
     if (keyDown("/") && keyDown("up") == false) {
-      p1.rotation = p1.rotation+18;
+      machine.rotation = machine.rotation+18;
     } else {
-      p1.rotation = p1.rotation+5;
+      machine.rotation = machine.rotation+5;
     }
   }
-  if (p1.getSpeed() > 10) {
-    p1.setSpeedAndDirection(10, p1.rotation-90);
+  if (machine.getSpeed() > 10) {
+    machine.setSpeedAndDirection(10, machine.rotation-90);
   }
   
-  if (p1.getSpeed() < -4) {
-    p1.setSpeedAndDirection(-4, p1.rotation-90);
+  if (machine.getSpeed() < -10) {
+    machine.setSpeedAndDirection(-10, machine.rotation-90);
   }
 
-  camera.x = p1.x;
-  camera.y = p1.y;
+  camera.x = machine.x;
+  camera.y = machine.y;
 
   drawSprites();
 
